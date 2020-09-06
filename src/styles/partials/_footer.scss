@@ -1,0 +1,26 @@
+.footer {
+  width: 100%;
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  background: rgba($accent-colour-gold, 0.25);
+
+  &__text {
+    @extend %sub-text;
+  }
+
+  &__text--emph {
+    font-weight: bold;
+    color: $accent-colour-gold;
+  }
+
+  &__right-container {
+    text-align: right;
+    width: 12rem;
+
+    @include tablet {
+      width: 15rem;
+    }
+  }
+}

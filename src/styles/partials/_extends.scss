@@ -1,0 +1,110 @@
+// text styles
+%page-header {
+  font-family: "Cinzel Decorative";
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+%section-headings {
+  font-family: "Cinzel";
+  font-weight: 700;
+  color: $secondary-colour-brown;
+}
+
+%body-text {
+  line-height: 1.25rem;
+}
+
+%sub-text {
+  font-weight: 300;
+  font-style: italic;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+%labels {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba($secondary-colour-brown, 0.75);
+}
+
+// common containers
+%section-containers {
+  width: 100%;
+  background: rgba(white, 0.8);
+  border-radius: 0.25rem;
+  box-shadow: 0 3px 5px 0 rgba($secondary-colour-brown, 0.25);
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+  height: 100%;
+
+  @include tablet {
+    margin: 0.75rem;
+  }
+}
+
+%section-headers {
+  padding: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba($accent-colour-gold, 0.25);
+  background: rgba($accent-colour-gold, 0.2);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+%results-items {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-flow: column;
+  border-bottom: 1px dotted rgba($secondary-colour-brown, 0.3);
+
+  &:nth-child(2n + 1) {
+    background: $background-colour-tan;
+  }
+}
+
+// button states
+%buttons-add {
+  background: $secondary-colour-brown;
+  color: $accent-colour-gold;
+  border: 1px solid $accent-colour-gold;
+  border-radius: 0.5rem;
+  min-width: 6rem;
+  font-family: "Roboto";
+  font-size: 0.75rem;
+  padding: 0.5rem;
+
+  &:hover,
+  &:focus {
+    background: $accent-colour-gold;
+    color: $secondary-colour-brown;
+  }
+}
+
+%buttons-nominated {
+  @extend %buttons-add;
+  background: white;
+
+  &:hover,
+  &:focus {
+    background: white;
+    color: $accent-colour-gold;
+  }
+}
+
+%buttons-remove {
+  @extend %buttons-add;
+  background: white;
+
+  // &:hover,
+  // &:focus {
+  //   background: white;
+  //   color: $accent-colour-gold;
+  // }
+}

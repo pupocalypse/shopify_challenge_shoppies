@@ -1,0 +1,23 @@
+.banner {
+  @extend %section-containers;
+  padding: 1rem;
+  background: rgba($accent-colour-gold, 0.7);
+  text-align: center;
+
+  &__heading {
+    @extend %section-headings;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__text {
+    @extend %body-text;
+  }
+
+  &__span {
+    color: rgba(white, 0.6);
+    font-size: 0.75rem;
+    font-weight: 300;
+    font-style: italic;
+  }
+}

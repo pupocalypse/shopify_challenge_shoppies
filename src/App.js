@@ -1,0 +1,189 @@
+import React from "react";
+import axios from "axios";
+
+import Header from "./components/Header";
+import Banner from "./components/Banner";
+import SearchBar from "./components/SearchBar";
+import Results from "./components/Results";
+import Nominations from "./components/Nominations";
+import Footer from "./components/Footer";
+
+import "./styles/app.css";
+
+const apiKey = "a3d02416";
+const searchUrl = `http://www.omdbapi.com/?apikey=${apiKey}&s=`;
+const idDetailsUrl = `http://www.omdbapi.com?apikey=${apiKey}&i=`;
+
+class App extends React.Component {
+  state = {
+    searchTerm: null,
+    searchResults: [],
+    nominations: [],
+    finished: false,
+  };
+
+  componentDidMount() {
+    console.log("component mounted");
+  }
+
+  componentDidUpdate(_prevProps, prevState) {
+    // console.log("component updated");
+    // once this.state.nominations has five movies, render another component
+    // change state to finished: true
+    if (
+      prevState.nominations.length !== 5 &&
+      this.state.nominations.length === 5
+    ) {
+      this.setState({
+        finished: true,
+      });
+    }
+  }
+
+  // trying something new - reduce load on rapid onChange input
+  debouncer = () => {
+    let timer;
+    let input;
+    return (e) => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+      input = e.target.value;
+      timer = setTimeout(() => {
+        this.search(input);
+        timer = null;
+      }, 1000);
+    };
+  };
+
+  search = (e) => {
+    const movieTitle = e;
+    if (!movieTitle) {
+      this.setState({
+        searchTerm: "",
+        searchResults: [],
+      });
+    } else {
+      axios
+        .get(`${searchUrl}${movieTitle}&type=movie`)
+        .then((response) => {
+          // console.log(response.data.Search);
+          let results;
+          if (response.data.Search) {
+            results = response.data.Search.reduce((acc, movieObj) => {
+              let movieMatch = axios.get(`${idDetailsUrl}${movieObj.imdbID}`);
+              // console.log("movieObj:", movieObj);
+
+              acc.push(movieMatch);
+              return acc;
+            }, []);
+          }
+          this.setState({
+            searchTerm: movieTitle,
+          });
+          return Promise.all(results);
+        })
+        .then((results) => {
+          // console.log("results:", results.data);
+          const matches = results
+            .filter(
+              (result) =>
+                result.data.Genre.includes("Short") === false &&
+                result.data.Genre !== "X"
+            )
+            .map((result) => {
+              console.log("result:", result.data);
+              const nominations = this.state.nominations;
+              const alreadyNominated = nominations.findIndex(
+                (nom) => nom.id === result.data.imdbID
+              );
+              let movie = {
+                id: result.data.imdbID,
+                title: result.data.Title,
+                year: result.data.Year,
+                country: result.data.Country,
+                genre: result.data.Genre,
+                nominated: false,
+              };
+              if (alreadyNominated !== -1) {
+                movie.nominated = true;
+              }
+              return movie;
+            });
+          // console.log("matches:", matches);
+          this.setState({
+            searchResults: matches,
+          });
+        })
+        .catch((error) => console.log(error));
+    }
+  };
+
+  addNomination = (movieObj) => {
+    // onClick event, passed to Results
+    // receives result object
+    // pushes nomination to setState
+    // deactive 'add' button in Results list for that title
+    // console.log("movieObj to add:", movieObj);
+    movieObj.nominated = true;
+    this.setState({
+      nominations: [...this.state.nominations, movieObj],
+    });
+  };
+
+  removeNomination = (movieObj) => {
+    // onClick event, passed to Nominations
+    // receives nomination object
+    // pops nomination from setState
+    // IF same title is display in Results, reactivate the 'add' button
+    movieObj.nominated = false;
+    let searchResults = this.state.searchResults;
+    const index = searchResults.findIndex(
+      (movie) => movie.title === movieObj.title
+    );
+    if (index !== -1) {
+      searchResults[index].nominated = false;
+    }
+    let updatedNominations = this.state.nominations.filter(
+      (nom) => nom.title !== movieObj.title
+    );
+    // console.log("updatedNominations:", updatedNominations);
+    if (updatedNominations.length === 0) {
+      updatedNominations = [];
+    }
+    this.setState({
+      searchResults: searchResults,
+      nominations: updatedNominations,
+    });
+  };
+
+  render() {
+    const nomCount = 5 - this.state.nominations.length;
+
+    return (
+      <>
+        <Header />
+        <main className="app">
+          <Banner
+            status={this.state.finished}
+            nominations={this.state.nominations}
+          />
+          <SearchBar search={this.search} debouncer={this.debouncer} />
+          <Results
+            searchTerm={this.state.searchTerm}
+            searchResults={this.state.searchResults}
+            addNomination={this.addNomination}
+          />
+          <Nominations
+            nominations={this.state.nominations}
+            removeNomination={this.removeNomination}
+            nomCount={nomCount}
+          />
+        </main>
+        <Footer />
+      </>
+    );
+  }
+}
+
+export default App;

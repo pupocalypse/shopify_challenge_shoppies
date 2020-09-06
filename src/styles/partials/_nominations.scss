@@ -1,0 +1,64 @@
+.nominations {
+  @extend %section-containers;
+
+  @include tablet {
+    width: 50%;
+    flex: 1 1;
+  }
+
+  &__header-bar {
+    @extend %section-headers;
+
+    @include tablet {
+      justify-content: space-between;
+    }
+  }
+
+  &__heading {
+    @extend %section-headings;
+    width: 100%;
+
+    @include tablet {
+      width: unset;
+    }
+  }
+
+  &__countdown {
+    color: rgba($accent-colour-gold, 0.5);
+    font-family: "PT Serif";
+    font-style: italic;
+  }
+
+  &__countdown--accent {
+    font-weight: bold;
+    color: rgba($accent-colour-gold, 0.75);
+  }
+
+  &__nom {
+    @extend %results-items;
+  }
+
+  &__no-noms-container {
+    padding: 1rem;
+  }
+
+  &__text-container {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  &__text {
+    @extend %body-text;
+  }
+
+  // list of nomination items
+  &__text--year {
+    color: rgba($secondary-colour-brown, 0.6);
+    font-style: italic;
+  }
+
+  &__button {
+    @extend %buttons-remove;
+    align-self: flex-end;
+  }
+}

@@ -1,0 +1,56 @@
+.results {
+  @extend %section-containers;
+
+  @include tablet {
+    width: 50%;
+    flex: 1 1;
+  }
+
+  &__header-bar {
+    @extend %section-headers;
+  }
+
+  &__heading {
+    @extend %section-headings;
+  }
+
+  &__text {
+    @extend %body-text;
+  }
+
+  &__text--search {
+    color: $accent-colour-gold;
+  }
+
+  // list of result items
+  &__result {
+    @extend %results-items;
+  }
+
+  &__no-matches-container {
+    padding: 1rem;
+  }
+
+  &__text-container {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  &__text--sub {
+    @extend %sub-text;
+  }
+
+  &__text--year {
+    color: rgba($secondary-colour-brown, 0.6);
+    font-style: italic;
+  }
+
+  &__button {
+    @extend %buttons-add;
+    align-self: flex-end;
+  }
+
+  &__button--nominated {
+    @extend %buttons-nominated;
+  }
+}

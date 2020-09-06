@@ -1,0 +1,38 @@
+html,
+body {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Roboto";
+  font-weight: 400;
+  color: $primary-colour-black;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  margin: 0;
+}
+
+.app {
+  background: $background-colour-tan;
+  min-height: calc(100vh - 4rem - 3rem);
+  // flex: 1 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2rem 1rem;
+
+  @include desktop {
+    padding: 2rem;
+  }
+}
