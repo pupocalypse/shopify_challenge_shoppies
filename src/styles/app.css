@@ -92,7 +92,7 @@
   background: #403c34;
   color: #ac8435;
   border: 1px solid #ac8435;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   min-width: 6rem;
   font-family: "Roboto";
   font-size: 0.75rem;
@@ -147,13 +147,21 @@ h6 {
 
 .app {
   background: #f7f2e9;
-  min-height: calc(100vh - 4rem - 3rem);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  padding: 2rem 1rem;
+  padding: 1.5rem 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .app {
+    min-height: calc(100vh - 10.1875rem);
+    -ms-flex-line-pack: start;
+        align-content: flex-start;
+    padding: 2rem 1.5rem;
+  }
 }
 
 @media screen and (min-width: 1280px) {
@@ -313,13 +321,20 @@ h6 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   background: rgba(172, 132, 53, 0.25);
+}
+
+@media screen and (min-width: 768px) {
+  .footer {
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
 }
 
 .footer__text--emph {
@@ -327,14 +342,50 @@ h6 {
   color: #ac8435;
 }
 
+.footer__left-container {
+  width: 100%;
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .footer__left-container {
+    width: unset;
+    text-align: left;
+  }
+}
+
 .footer__right-container {
-  text-align: right;
-  width: 12rem;
+  width: 100%;
+  text-align: center;
+  margin-top: 1rem;
 }
 
 @media screen and (min-width: 768px) {
   .footer__right-container {
     width: 15rem;
+    text-align: right;
+    margin-top: 0;
   }
+}
+
+@media screen and (min-width: 768px) {
+  .footer__break {
+    display: none;
+  }
+}
+
+.footer__contact-links {
+  color: rgba(172, 132, 53, 0.5);
+  font-style: italic;
+}
+
+.footer__link {
+  text-decoration: none;
+  display: inline-block;
+  color: rgba(172, 132, 53, 0.75);
+}
+
+.footer__link:hover {
+  color: #403c34;
 }
 /*# sourceMappingURL=app.css.map */

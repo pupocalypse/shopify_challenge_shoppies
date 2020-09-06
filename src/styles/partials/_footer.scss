@@ -2,9 +2,13 @@
   width: 100%;
   padding: 1.5rem;
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+  flex-wrap: wrap;
   background: rgba($accent-colour-gold, 0.25);
+
+  @include tablet {
+    align-items: flex-end;
+    justify-content: space-between;
+  }
 
   &__text {
     @extend %sub-text;
@@ -15,12 +19,46 @@
     color: $accent-colour-gold;
   }
 
+  &__left-container {
+    width: 100%;
+    text-align: center;
+
+    @include tablet {
+      width: unset;
+      text-align: left;
+    }
+  }
+
   &__right-container {
-    text-align: right;
-    width: 12rem;
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
 
     @include tablet {
       width: 15rem;
+      text-align: right;
+      margin-top: 0;
+    }
+  }
+
+  &__break {
+    @include tablet {
+      display: none;
+    }
+  }
+
+  &__contact-links {
+    color: rgba($accent-colour-gold, 0.5);
+    font-style: italic;
+  }
+
+  &__link {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba($accent-colour-gold, 0.75);
+
+    &:hover {
+      color: $secondary-colour-brown;
     }
   }
 }

@@ -26,11 +26,17 @@ h6 {
 
 .app {
   background: $background-colour-tan;
-  min-height: calc(100vh - 4rem - 3rem);
+  // min-height: calc(100vh - 4rem - 3rem);
   // flex: 1 0 auto;
   display: flex;
   flex-wrap: wrap;
-  padding: 2rem 1rem;
+  padding: 1.5rem 1rem;
+
+  @include tablet {
+    min-height: calc(100vh - 10.1875rem);
+    align-content: flex-start;
+    padding: 2rem 1.5rem;
+  }
 
   @include desktop {
     padding: 2rem;
