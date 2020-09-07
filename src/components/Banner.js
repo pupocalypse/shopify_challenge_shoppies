@@ -14,6 +14,8 @@ const Banner = ({ status }) => {
     "Saturday Night Fever",
     "Monty Python and the Holy Grail",
   ];
+
+  // add a check for matching nominations
   const randomIndex = (arr) => {
     const index = Math.floor(Math.random() * arr.length);
     return arr[index];
@@ -30,8 +32,11 @@ const Banner = ({ status }) => {
           finalizing your decision.
         </p>
         <span className="banner__span">
-          Are you sure {randomIndex(randomMovies)} isn't one of your favourite
-          movies?
+          Are you sure{" "}
+          <span className="banner__text banner__text--movie">
+            '{randomIndex(randomMovies)}'
+          </span>{" "}
+          isn't one of your favourite movies?
         </span>
       </section>
     );

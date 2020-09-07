@@ -72,7 +72,7 @@
 // button states
 %buttons-add {
   background: $secondary-colour-brown;
-  color: $accent-colour-gold;
+  color: rgba(white, 0.8);
   border: 1px solid $accent-colour-gold;
   border-radius: 1rem;
   min-width: 6rem;
@@ -82,14 +82,16 @@
 
   &:hover,
   &:focus {
+    outline: none;
     background: $accent-colour-gold;
-    color: $secondary-colour-brown;
+    color: $primary-colour-black;
   }
 }
 
 %buttons-nominated {
   @extend %buttons-add;
   background: white;
+  color: $accent-colour-gold;
 
   &:hover,
   &:focus {
@@ -101,10 +103,5 @@
 %buttons-remove {
   @extend %buttons-add;
   background: white;
-
-  // &:hover,
-  // &:focus {
-  //   background: white;
-  //   color: $accent-colour-gold;
-  // }
+  color: $accent-colour-gold;
 }

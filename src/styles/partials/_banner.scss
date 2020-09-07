@@ -14,6 +14,11 @@
     @extend %body-text;
   }
 
+  &__text--movie {
+    color: rgba(white, 0.8);
+    font-weight: bold;
+  }
+
   &__span {
     color: rgba(white, 0.6);
     font-size: 0.75rem;

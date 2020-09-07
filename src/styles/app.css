@@ -90,7 +90,7 @@
 
 .results__button--nominated, .nominations__button, .results__button {
   background: #403c34;
-  color: #ac8435;
+  color: rgba(255, 255, 255, 0.8);
   border: 1px solid #ac8435;
   border-radius: 1rem;
   min-width: 6rem;
@@ -100,12 +100,14 @@
 }
 
 .results__button--nominated:hover, .nominations__button:hover, .results__button:hover, .results__button--nominated:focus, .nominations__button:focus, .results__button:focus {
+  outline: none;
   background: #ac8435;
-  color: #403c34;
+  color: #2b292b;
 }
 
 .results__button--nominated {
   background: white;
+  color: #ac8435;
 }
 
 .results__button--nominated:hover, .results__button--nominated:focus {
@@ -115,6 +117,7 @@
 
 .nominations__button {
   background: white;
+  color: #ac8435;
 }
 
 html,
@@ -198,6 +201,11 @@ h6 {
 .banner__heading {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
+}
+
+.banner__text--movie {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: bold;
 }
 
 .banner__span {

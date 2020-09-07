@@ -1,9 +1,7 @@
 import React from "react";
 
-const Results = ({ searchTerm, searchResults, addNomination }) => {
-  console.log("searchResults:", searchResults);
+const Results = ({ searchTerm, searchResults, addNomination, disabled }) => {
   const resultsList = searchResults.map((result) => {
-    // console.log("result:", result);
     if (!result) {
       return (
         <div className="results__result">
@@ -33,6 +31,7 @@ const Results = ({ searchTerm, searchResults, addNomination }) => {
             <button
               className="results__button"
               onClick={() => addNomination(result)}
+              disabled={disabled}
             >
               + Add Movie
             </button>

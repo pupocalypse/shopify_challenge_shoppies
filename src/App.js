@@ -19,16 +19,12 @@ class App extends React.Component {
     searchTerm: null,
     searchResults: [],
     nominations: [],
+    loading: false,
     finished: false,
   };
 
-  componentDidMount() {
-    console.log("component mounted");
-  }
-
   componentDidUpdate(_prevProps, prevState) {
-    // console.log("component updated");
-    // once this.state.nominations has five movies, render another component
+    // once this.state.nominations has five movies, render Banner component
     // change state to finished: true
     if (
       prevState.nominations.length !== 5 &&
@@ -62,29 +58,28 @@ class App extends React.Component {
       this.setState({
         searchTerm: "",
         searchResults: [],
+        loading: false,
       });
     } else {
       axios
         .get(`${searchUrl}${movieTitle}&type=movie`)
         .then((response) => {
-          // console.log(response.data.Search);
           let results;
           if (response.data.Search) {
             results = response.data.Search.reduce((acc, movieObj) => {
               let movieMatch = axios.get(`${idDetailsUrl}${movieObj.imdbID}`);
-              // console.log("movieObj:", movieObj);
 
               acc.push(movieMatch);
               return acc;
             }, []);
           }
           this.setState({
+            loading: true,
             searchTerm: movieTitle,
           });
           return Promise.all(results);
         })
         .then((results) => {
-          // console.log("results:", results.data);
           const matches = results
             .filter(
               (result) =>
@@ -92,7 +87,6 @@ class App extends React.Component {
                 result.data.Genre !== "X"
             )
             .map((result) => {
-              console.log("result:", result.data);
               const nominations = this.state.nominations;
               const alreadyNominated = nominations.findIndex(
                 (nom) => nom.id === result.data.imdbID
@@ -110,8 +104,8 @@ class App extends React.Component {
               }
               return movie;
             });
-          // console.log("matches:", matches);
           this.setState({
+            loading: false,
             searchResults: matches,
           });
         })
@@ -124,18 +118,19 @@ class App extends React.Component {
     // receives result object
     // pushes nomination to setState
     // deactive 'add' button in Results list for that title
-    // console.log("movieObj to add:", movieObj);
-    movieObj.nominated = true;
-    this.setState({
-      nominations: [...this.state.nominations, movieObj],
-    });
+    if (this.state.nominations.length !== 5) {
+      movieObj.nominated = true;
+      this.setState({
+        nominations: [...this.state.nominations, movieObj],
+      });
+    }
   };
 
   removeNomination = (movieObj) => {
     // onClick event, passed to Nominations
     // receives nomination object
     // pops nomination from setState
-    // IF same title is display in Results, reactivate the 'add' button
+    // IF same title is displayed in Results, reactivate the 'add' button
     movieObj.nominated = false;
     let searchResults = this.state.searchResults;
     const index = searchResults.findIndex(
@@ -147,7 +142,6 @@ class App extends React.Component {
     let updatedNominations = this.state.nominations.filter(
       (nom) => nom.title !== movieObj.title
     );
-    // console.log("updatedNominations:", updatedNominations);
     if (updatedNominations.length === 0) {
       updatedNominations = [];
     }
@@ -173,6 +167,8 @@ class App extends React.Component {
             searchTerm={this.state.searchTerm}
             searchResults={this.state.searchResults}
             addNomination={this.addNomination}
+            disabled={this.state.nominations.length >= 5}
+            loading={this.state.loading}
           />
           <Nominations
             nominations={this.state.nominations}
