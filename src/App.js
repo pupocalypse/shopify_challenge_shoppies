@@ -23,6 +23,16 @@ class App extends React.Component {
     finished: false,
   };
 
+  componentDidMount() {
+    const savedNoms = localStorage.getItem("nominations");
+    const nominations = JSON.parse(savedNoms);
+    if (nominations && nominations.length > 0) {
+      this.setState({
+        nominations,
+      });
+    }
+  }
+
   componentDidUpdate(_prevProps, prevState) {
     // once this.state.nominations has five movies, render Banner component
     // change state to finished: true
@@ -34,6 +44,9 @@ class App extends React.Component {
         finished: true,
       });
     }
+    // set localStorage is nominations has changed
+    let allNoms = this.state.nominations;
+    localStorage.setItem("nominations", JSON.stringify(allNoms));
   }
 
   // trying something new - reduce load on rapid onChange input
@@ -149,6 +162,7 @@ class App extends React.Component {
       searchResults: searchResults,
       nominations: updatedNominations,
     });
+    localStorage.setItem("nominations", JSON.stringify(updatedNominations));
   };
 
   render() {

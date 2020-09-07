@@ -12,7 +12,7 @@ const Footer = () => {
         </p>
         <div className="footer__contact-links">
           <a
-            href="https://github.com/pupocalypse"
+            href="https://github.com/pupocalypse/shopify_challenge_shoppies"
             className="footer__link"
             target="_blank"
           >
