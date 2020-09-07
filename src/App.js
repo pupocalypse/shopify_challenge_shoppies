@@ -11,8 +11,8 @@ import Footer from "./components/Footer";
 import "./styles/app.css";
 
 const apiKey = "a3d02416";
-const searchUrl = `http://www.omdbapi.com/?apikey=${apiKey}&s=`;
-const idDetailsUrl = `http://www.omdbapi.com?apikey=${apiKey}&i=`;
+const searchUrl = `https://www.omdbapi.com/?apikey=${apiKey}&s=`;
+const idDetailsUrl = `https://www.omdbapi.com?apikey=${apiKey}&i=`;
 
 class App extends React.Component {
   state = {
