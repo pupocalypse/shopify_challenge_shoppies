@@ -43,6 +43,13 @@ class App extends React.Component {
       this.setState({
         finished: true,
       });
+    } else if (
+      prevState.nominations.length === 5 &&
+      this.state.nominations.length !== 5
+    ) {
+      this.setState({
+        finished: false,
+      });
     }
     // set localStorage is nominations has changed
     let allNoms = this.state.nominations;
