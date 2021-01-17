@@ -1,6 +1,6 @@
 import React from "react";
 
-const Banner = ({ status }) => {
+const Banner = ({ finished, nominations }) => {
   const randomMovies = [
     "Tropic Thunder",
     "Clue",
@@ -18,10 +18,15 @@ const Banner = ({ status }) => {
   // add a check for matching nominations
   const randomIndex = (arr) => {
     const index = Math.floor(Math.random() * arr.length);
+    nominations.forEach((nom) => {
+      if (arr[index] === nom.title) {
+        return randomIndex(arr);
+      }
+    });
     return arr[index];
   };
 
-  if (!status) {
+  if (!finished) {
     return null;
   } else {
     return (

@@ -4,6 +4,8 @@
   @include tablet {
     width: 50%;
     flex: 1 1;
+    position: sticky;
+    top: 1rem;
   }
 
   &__header-bar {

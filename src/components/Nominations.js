@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "./elements/Button";
 
 const Nominations = ({ nominations, removeNomination, nomCount }) => {
   const nomsList = nominations.map((nom) => {
@@ -10,14 +11,12 @@ const Nominations = ({ nominations, removeNomination, nomCount }) => {
             <span className="nominations__text--year">({nom.year})</span>
           </p>
         </div>
-        {nom.nominated ? (
-          <button
-            className="nominations__button"
-            onClick={() => removeNomination(nom)}
-          >
-            - Remove Movie
-          </button>
-        ) : null}
+        <Button
+          className="nominations__button"
+          clickHandler={() => removeNomination(nom)}
+        >
+          - Remove Movie
+        </Button>
       </div>
     );
   });
@@ -35,12 +34,9 @@ const Nominations = ({ nominations, removeNomination, nomCount }) => {
       </div>
       {nominations.length < 1 ? (
         <div className="nominations__no-noms-container">
-          <div className="nominations__text-container">
-            <p className="nominations__text">
-              No nominations yet. Search for your favourite movie to get
-              started!
-            </p>
-          </div>
+          <p className="nominations__text">
+            No nominations yet. Search for your favourite movie to get started!
+          </p>
         </div>
       ) : (
         nomsList

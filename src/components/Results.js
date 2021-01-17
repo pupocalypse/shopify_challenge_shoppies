@@ -1,6 +1,13 @@
 import React from "react";
+import Button from "./elements/Button";
 
-const Results = ({ searchTerm, searchResults, addNomination, disabled }) => {
+const Results = ({
+  searchTerm,
+  searchResults,
+  addNomination,
+  noResults,
+  disabled,
+}) => {
   const resultsList = searchResults.map((result) => {
     if (!result) {
       return (
@@ -24,17 +31,17 @@ const Results = ({ searchTerm, searchResults, addNomination, disabled }) => {
             </p>
           </div>
           {result.nominated ? (
-            <button className="results__button results__button--nominated">
+            <Button className="results__button results__button--nominated">
               Nominated!
-            </button>
+            </Button>
           ) : (
-            <button
+            <Button
               className="results__button"
-              onClick={() => addNomination(result)}
+              clickHandler={() => addNomination(result)}
               disabled={disabled}
             >
               + Add Movie
-            </button>
+            </Button>
           )}
         </div>
       );
@@ -49,7 +56,9 @@ const Results = ({ searchTerm, searchResults, addNomination, disabled }) => {
             <h3 className="results__heading">Results</h3>
           </div>
           <div className="results__no-matches-container">
-            <p className="results__text">No matches</p>
+            <p className="results__text">
+              {noResults ? "No matches" : "Search for a movie"}
+            </p>
           </div>
         </>
       ) : (

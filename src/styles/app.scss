@@ -1,12 +1,19 @@
+// global Sass files
 @import "./partials/fonts";
 @import "./partials/variables";
+@import "./partials/animations";
 @import "./partials/mixins";
 @import "./partials/extends";
 @import "./partials/global";
 
+// elements styling
+@import "./partials/loader";
+
+// components styling
 @import "./partials/header";
 @import "./partials/banner";
 @import "./partials/searchbar";
 @import "./partials/results";
 @import "./partials/nominations";
 @import "./partials/footer";
+@import "./partials/scrolltotop-button";

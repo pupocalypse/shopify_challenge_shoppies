@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import Header from "./components/Header";
@@ -8,79 +8,72 @@ import Results from "./components/Results";
 import Nominations from "./components/Nominations";
 import Footer from "./components/Footer";
 
+import ScrollToTopButton from "./components/elements/ScrollToTopButton";
+
 import "./styles/app.css";
 
 const apiKey = "a3d02416";
 const searchUrl = `https://www.omdbapi.com/?apikey=${apiKey}&s=`;
 const idDetailsUrl = `https://www.omdbapi.com?apikey=${apiKey}&i=`;
 
-class App extends React.Component {
-  state = {
-    searchTerm: null,
-    searchResults: [],
-    nominations: [],
-    loading: false,
-    finished: false,
+const App = () => {
+  const rootElement = document.documentElement;
+
+  const [searchTerm, setSearchTerm] = useState(null);
+  const [searchResults, setSearchResults] = useState([]);
+  const [nominations, setNominations] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [finished, setFinished] = useState(false);
+
+  useEffect(() => {
+    if (nominations.length === 0) {
+      const savedNoms = JSON.parse(localStorage.getItem("nominations"));
+      if (savedNoms?.length > 0) {
+        setNominations(savedNoms);
+      }
+    }
+
+    if (nominations.length === 5) {
+      setFinished(true);
+      scrollToTop();
+    } else {
+      setFinished(false);
+    }
+
+    localStorage.setItem("nominations", JSON.stringify(nominations));
+  }, [nominations]);
+
+  const scrollToTop = () => {
+    rootElement.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
-  componentDidMount() {
-    const savedNoms = localStorage.getItem("nominations");
-    const nominations = JSON.parse(savedNoms);
-    if (nominations && nominations.length > 0) {
-      this.setState({
-        nominations,
-      });
-    }
-  }
-
-  componentDidUpdate(_prevProps, prevState) {
-    // once this.state.nominations has five movies, render Banner component
-    // change state to finished: true
-    if (
-      prevState.nominations.length !== 5 &&
-      this.state.nominations.length === 5
-    ) {
-      this.setState({
-        finished: true,
-      });
-    } else if (
-      prevState.nominations.length === 5 &&
-      this.state.nominations.length !== 5
-    ) {
-      this.setState({
-        finished: false,
-      });
-    }
-    // set localStorage is nominations has changed
-    let allNoms = this.state.nominations;
-    localStorage.setItem("nominations", JSON.stringify(allNoms));
-  }
-
   // trying something new - reduce load on rapid onChange input
-  debouncer = () => {
+  const debouncer = () => {
     let timer;
     let input;
     return (e) => {
       if (timer) {
         clearTimeout(timer);
       }
+      setLoading(true);
       input = e.target.value;
       timer = setTimeout(() => {
-        this.search(input);
+        search(input);
         timer = null;
       }, 1000);
     };
   };
 
-  search = (e) => {
-    const movieTitle = e;
+  const search = (movieTitle) => {
     if (!movieTitle) {
-      this.setState({
-        searchTerm: "",
-        searchResults: [],
-        loading: false,
-      });
+      setSearchTerm(null);
+      setSearchResults([]);
+      setLoading(false);
     } else {
+      setSearchTerm(movieTitle);
       axios
         .get(`${searchUrl}${movieTitle}&type=movie`)
         .then((response) => {
@@ -93,10 +86,6 @@ class App extends React.Component {
               return acc;
             }, []);
           }
-          this.setState({
-            loading: true,
-            searchTerm: movieTitle,
-          });
           return Promise.all(results);
         })
         .then((results) => {
@@ -105,9 +94,9 @@ class App extends React.Component {
               (result) =>
                 result.data.Genre.includes("Short") === false &&
                 result.data.Genre !== "X"
+              // this API includes some naughty results =\
             )
             .map((result) => {
-              const nominations = this.state.nominations;
               const alreadyNominated = nominations.findIndex(
                 (nom) => nom.id === result.data.imdbID
               );
@@ -124,83 +113,76 @@ class App extends React.Component {
               }
               return movie;
             });
-          this.setState({
-            loading: false,
-            searchResults: matches,
-          });
+          setSearchResults(matches);
         })
-        .catch((error) => console.log(error));
+        .catch(() => {
+          // no results found from searchTerm
+          setSearchResults([]);
+          // setLoading(false);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
   };
 
-  addNomination = (movieObj) => {
-    // onClick event, passed to Results
-    // receives result object
-    // pushes nomination to setState
-    // deactive 'add' button in Results list for that title
-    if (this.state.nominations.length !== 5) {
+  // onClick event, passed to Results
+  // receives result object
+  // pushes nomination to state
+  // deactive 'add' button in Results list for that title
+  const addNomination = (movieObj) => {
+    if (nominations.length !== 5) {
       movieObj.nominated = true;
-      this.setState({
-        nominations: [...this.state.nominations, movieObj],
-      });
+      setNominations([...nominations, movieObj]);
     }
   };
 
-  removeNomination = (movieObj) => {
-    // onClick event, passed to Nominations
-    // receives nomination object
-    // pops nomination from setState
-    // IF same title is displayed in Results, reactivate the 'add' button
+  // onClick event, passed to Nominations
+  // receives nomination object
+  // removes nomination from state
+  // IF same title is displayed in Results, reactivate the 'add' button
+  const removeNomination = (movieObj) => {
     movieObj.nominated = false;
-    let searchResults = this.state.searchResults;
     const index = searchResults.findIndex(
       (movie) => movie.title === movieObj.title
     );
     if (index !== -1) {
       searchResults[index].nominated = false;
     }
-    let updatedNominations = this.state.nominations.filter(
+    let updatedNominations = nominations.filter(
       (nom) => nom.title !== movieObj.title
     );
     if (updatedNominations.length === 0) {
       updatedNominations = [];
     }
-    this.setState({
-      searchResults: searchResults,
-      nominations: updatedNominations,
-    });
+    setSearchResults(searchResults);
+    setNominations(updatedNominations);
     localStorage.setItem("nominations", JSON.stringify(updatedNominations));
   };
 
-  render() {
-    const nomCount = 5 - this.state.nominations.length;
-
-    return (
-      <>
-        <Header />
-        <main className="app">
-          <Banner
-            status={this.state.finished}
-            nominations={this.state.nominations}
-          />
-          <SearchBar search={this.search} debouncer={this.debouncer} />
-          <Results
-            searchTerm={this.state.searchTerm}
-            searchResults={this.state.searchResults}
-            addNomination={this.addNomination}
-            disabled={this.state.nominations.length >= 5}
-            loading={this.state.loading}
-          />
-          <Nominations
-            nominations={this.state.nominations}
-            removeNomination={this.removeNomination}
-            nomCount={nomCount}
-          />
-        </main>
-        <Footer />
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <Header />
+      <main className="app">
+        <Banner finished={finished} nominations={nominations} />
+        <SearchBar debouncer={debouncer} loading={loading} />
+        <Results
+          searchTerm={searchTerm}
+          searchResults={searchResults}
+          addNomination={addNomination}
+          noResults={searchTerm && searchResults.length === 0}
+          disabled={nominations.length >= 5}
+        />
+        <Nominations
+          nominations={nominations}
+          removeNomination={removeNomination}
+          nomCount={5 - nominations.length}
+        />
+        <ScrollToTopButton scrollToTop={scrollToTop} />
+      </main>
+      <Footer />
+    </>
+  );
+};
 
 export default App;

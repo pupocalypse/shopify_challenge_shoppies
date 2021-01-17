@@ -1,0 +1,20 @@
+.scroll-button {
+  width: 2.5rem;
+  height: 2.5rem;
+  position: absolute;
+  bottom: -1rem;
+  right: 1.5rem;
+  background: darken($background-colour-tan, 10%);
+  border: none;
+  border-radius: 100%;
+  box-shadow: 0 3px 5px 0 rgba($secondary-colour-brown, 0.25);
+
+  @include tablet {
+    bottom: 1rem;
+  }
+
+  & .fas {
+    font-size: 1.5rem;
+    color: $secondary-colour-brown;
+  }
+}

@@ -1,6 +1,7 @@
 .search {
   @extend %section-containers;
   padding: 1rem;
+  position: relative;
 
   &__label {
     @extend %labels;
@@ -20,5 +21,11 @@
       outline: none;
       border: 2px solid $accent-colour-gold;
     }
+  }
+
+  &__loader {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 2rem;
   }
 }

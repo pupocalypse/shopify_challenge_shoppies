@@ -1,0 +1,25 @@
+// animation for this element largely inspired by SpinKit: https://github.com/tobiasahlin/SpinKit
+
+.loader {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__orb {
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: $secondary-colour-brown;
+    border-radius: 100%;
+    animation: orb-bounce 1.4s infinite ease-in-out both;
+
+    $increment: 0.25;
+
+    @for $i from 1 through 3 {
+      &:nth-child(#{$i}) {
+        animation-delay: -#{(3 - $i) * $increment}s;
+      }
+    }
+  }
+}

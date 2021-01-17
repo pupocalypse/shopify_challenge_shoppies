@@ -15,6 +15,7 @@ const Footer = () => {
             href="https://github.com/pupocalypse/shopify_challenge_shoppies"
             className="footer__link"
             target="_blank"
+            rel="noopener noreferrer"
           >
             <p className="footer__text">GitHub</p>
           </a>{" "}
@@ -23,6 +24,7 @@ const Footer = () => {
             href="https://www.linkedin.com/in/jess-hilliam/"
             className="footer__link"
             target="_blank"
+            rel="noopener noreferrer"
           >
             <p className="footer__text">LinkedIn</p>
           </a>
