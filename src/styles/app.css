@@ -481,7 +481,7 @@ h6 {
   position: absolute;
   bottom: -1rem;
   right: 1.5rem;
-  background: #e9dcc4;
+  background: #4e493f;
   border: none;
   border-radius: 100%;
   -webkit-box-shadow: 0 3px 5px 0 rgba(64, 60, 52, 0.25);
@@ -494,8 +494,13 @@ h6 {
   }
 }
 
+.scroll-button:hover, .scroll-button:focus {
+  outline: none;
+  background: #2b292b;
+}
+
 .scroll-button .fas {
   font-size: 1.5rem;
-  color: #403c34;
+  color: #c89e4c;
 }
 /*# sourceMappingURL=app.css.map */

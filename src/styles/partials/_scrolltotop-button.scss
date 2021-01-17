@@ -4,7 +4,7 @@
   position: absolute;
   bottom: -1rem;
   right: 1.5rem;
-  background: darken($background-colour-tan, 10%);
+  background: lighten($secondary-colour-brown, 5%);
   border: none;
   border-radius: 100%;
   box-shadow: 0 3px 5px 0 rgba($secondary-colour-brown, 0.25);
@@ -13,8 +13,14 @@
     bottom: 1rem;
   }
 
+  &:hover,
+  &:focus {
+    outline: none;
+    background: $primary-colour-black;
+  }
+
   & .fas {
     font-size: 1.5rem;
-    color: $secondary-colour-brown;
+    color: lighten($accent-colour-gold, 10%);
   }
 }

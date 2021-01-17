@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
 import Header from "./components/Header";
@@ -25,6 +25,13 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [finished, setFinished] = useState(false);
 
+  const scrollToTop = useCallback(() => {
+    rootElement.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [rootElement]);
+
   useEffect(() => {
     if (nominations.length === 0) {
       const savedNoms = JSON.parse(localStorage.getItem("nominations"));
@@ -41,14 +48,7 @@ const App = () => {
     }
 
     localStorage.setItem("nominations", JSON.stringify(nominations));
-  }, [nominations]);
-
-  const scrollToTop = () => {
-    rootElement.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
+  }, [nominations, scrollToTop]);
 
   // trying something new - reduce load on rapid onChange input
   const debouncer = () => {
