@@ -12,7 +12,7 @@ import ScrollToTopButton from "./components/elements/ScrollToTopButton";
 
 import "./styles/app.css";
 
-const apiKey = "a3d02416";
+const apiKey = process.env.REACT_APP_API_KEY;
 const searchUrl = `https://www.omdbapi.com/?apikey=${apiKey}&s=`;
 const idDetailsUrl = `https://www.omdbapi.com?apikey=${apiKey}&i=`;
 
@@ -118,7 +118,6 @@ const App = () => {
         .catch(() => {
           // no results found from searchTerm
           setSearchResults([]);
-          // setLoading(false);
         })
         .finally(() => {
           setLoading(false);
