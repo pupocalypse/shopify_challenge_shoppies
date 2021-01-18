@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/shopify_challenge_shoppies/static/css/main.5c3b62d3.chunk.css",
-    "main.js": "/shopify_challenge_shoppies/static/js/main.14b75f5b.chunk.js",
-    "main.js.map": "/shopify_challenge_shoppies/static/js/main.14b75f5b.chunk.js.map",
+    "main.css": "/shopify_challenge_shoppies/static/css/main.31fbaff3.chunk.css",
+    "main.js": "/shopify_challenge_shoppies/static/js/main.e25f3845.chunk.js",
+    "main.js.map": "/shopify_challenge_shoppies/static/js/main.e25f3845.chunk.js.map",
     "runtime-main.js": "/shopify_challenge_shoppies/static/js/runtime-main.315f03de.js",
     "runtime-main.js.map": "/shopify_challenge_shoppies/static/js/runtime-main.315f03de.js.map",
-    "static/js/2.671db225.chunk.js": "/shopify_challenge_shoppies/static/js/2.671db225.chunk.js",
-    "static/js/2.671db225.chunk.js.map": "/shopify_challenge_shoppies/static/js/2.671db225.chunk.js.map",
+    "static/js/2.5d021219.chunk.js": "/shopify_challenge_shoppies/static/js/2.5d021219.chunk.js",
+    "static/js/2.5d021219.chunk.js.map": "/shopify_challenge_shoppies/static/js/2.5d021219.chunk.js.map",
     "index.html": "/shopify_challenge_shoppies/index.html",
-    "precache-manifest.094e5b1582ed6369015e52871940bae7.js": "/shopify_challenge_shoppies/precache-manifest.094e5b1582ed6369015e52871940bae7.js",
+    "precache-manifest.c0dba19e2474b0974528b5ca9cec8fd4.js": "/shopify_challenge_shoppies/precache-manifest.c0dba19e2474b0974528b5ca9cec8fd4.js",
     "service-worker.js": "/shopify_challenge_shoppies/service-worker.js",
-    "static/css/main.5c3b62d3.chunk.css.map": "/shopify_challenge_shoppies/static/css/main.5c3b62d3.chunk.css.map",
-    "static/js/2.671db225.chunk.js.LICENSE.txt": "/shopify_challenge_shoppies/static/js/2.671db225.chunk.js.LICENSE.txt"
+    "static/css/main.31fbaff3.chunk.css.map": "/shopify_challenge_shoppies/static/css/main.31fbaff3.chunk.css.map",
+    "static/js/2.5d021219.chunk.js.LICENSE.txt": "/shopify_challenge_shoppies/static/js/2.5d021219.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.315f03de.js",
-    "static/js/2.671db225.chunk.js",
-    "static/css/main.5c3b62d3.chunk.css",
-    "static/js/main.14b75f5b.chunk.js"
+    "static/js/2.5d021219.chunk.js",
+    "static/css/main.31fbaff3.chunk.css",
+    "static/js/main.e25f3845.chunk.js"
   ]
 }
