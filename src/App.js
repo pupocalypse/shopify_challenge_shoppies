@@ -16,6 +16,22 @@ const apiKey = process.env.REACT_APP_API_KEY;
 const searchUrl = `https://www.omdbapi.com/?apikey=${apiKey}&s=`;
 const idDetailsUrl = `https://www.omdbapi.com?apikey=${apiKey}&i=`;
 
+const randomMovies = [
+  "Tropic Thunder",
+  "Clue",
+  "A Bug's Life",
+  "Little Miss Sunshine",
+  "Ordinary People",
+  "This Is Spinal Tap",
+  "Raging Bull",
+  "Shawshank Redemption",
+  "Dumb and Dumber",
+  "Saturday Night Fever",
+  "Monty Python and the Holy Grail",
+];
+
+// let randomMovie = randomIndex();
+
 const App = () => {
   const rootElement = document.documentElement;
 
@@ -24,6 +40,16 @@ const App = () => {
   const [nominations, setNominations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [finished, setFinished] = useState(false);
+  const [randomMovie, setRandomMovie] = useState(null);
+
+  const randomIndex = useCallback(() => {
+    const movies = randomMovies.filter(
+      (movie) => !nominations.some((nom) => nom.title === movie)
+    );
+
+    const index = Math.floor(Math.random() * movies.length);
+    return movies[index];
+  }, [nominations]);
 
   const scrollToTop = useCallback(() => {
     rootElement.scrollTo({
@@ -41,6 +67,7 @@ const App = () => {
     }
 
     if (nominations.length === 5) {
+      setRandomMovie(randomIndex());
       setFinished(true);
       scrollToTop();
     } else {
@@ -48,9 +75,9 @@ const App = () => {
     }
 
     localStorage.setItem("nominations", JSON.stringify(nominations));
-  }, [nominations, scrollToTop]);
+  }, [nominations, scrollToTop, randomMovie, randomIndex]);
 
-  // trying something new - reduce load on rapid onChange input
+  // reduce load on rapid onChange input
   const debouncer = () => {
     let timer;
     let input;
@@ -120,7 +147,9 @@ const App = () => {
           setSearchResults([]);
         })
         .finally(() => {
-          setLoading(false);
+          setTimeout(() => {
+            setLoading(false);
+          }, 500);
         });
     }
   };
@@ -163,7 +192,11 @@ const App = () => {
     <>
       <Header />
       <main className="app">
-        <Banner finished={finished} nominations={nominations} />
+        <Banner
+          finished={finished}
+          nominations={nominations}
+          randomMovie={randomMovie}
+        />
         <SearchBar debouncer={debouncer} loading={loading} />
         <Results
           searchTerm={searchTerm}
