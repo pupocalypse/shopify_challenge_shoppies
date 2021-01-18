@@ -1,23 +1,10 @@
 import React from "react";
-import Button from "./elements/Button";
+import NominationCard from "./NominationCard";
 
 const Nominations = ({ nominations, removeNomination, nomCount }) => {
   const nomsList = nominations.map((nom) => {
     return (
-      <div className="nominations__nom" key={nom.id}>
-        <div className="nominations__text-container">
-          <p className="nominations__text">
-            {nom.title}{" "}
-            <span className="nominations__text--year">({nom.year})</span>
-          </p>
-        </div>
-        <Button
-          className="nominations__button"
-          clickHandler={() => removeNomination(nom)}
-        >
-          - Remove Movie
-        </Button>
-      </div>
+      <NominationCard nomination={nom} removeNomination={removeNomination} />
     );
   });
 

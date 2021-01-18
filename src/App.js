@@ -12,9 +12,9 @@ import ScrollToTopButton from "./components/elements/ScrollToTopButton";
 
 import "./styles/app.css";
 
-const apiKey = process.env.REACT_APP_API_KEY;
-const searchUrl = `https://www.omdbapi.com/?apikey=${apiKey}&s=`;
-const idDetailsUrl = `https://www.omdbapi.com?apikey=${apiKey}&i=`;
+const API_KEY = process.env.REACT_APP_API_KEY;
+const searchUrl = `https://www.omdbapi.com/?apikey=${API_KEY}&s=`;
+const idDetailsUrl = `https://www.omdbapi.com?apikey=${API_KEY}&i=`;
 
 const randomMovies = [
   "Tropic Thunder",
@@ -29,8 +29,6 @@ const randomMovies = [
   "Saturday Night Fever",
   "Monty Python and the Holy Grail",
 ];
-
-// let randomMovie = randomIndex();
 
 const App = () => {
   const rootElement = document.documentElement;
